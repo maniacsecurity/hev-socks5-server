@@ -65,7 +65,7 @@ hev_socks5_session_bind (HevSocks5 *self, int sock)
     if (res == 0)
         return -1;
     */
-    int fd = HEV_SOCKS5 (((HevSocks5Server *)self)->base)->fd;
+    int fd = HEV_SOCKS5 ((((HevSocks5Server *)self)->base))->fd;
     socklen_t len = sizeof (saddr);
     LOG_D ("%p socks5 session bind fd %x", self, fd);
     getpeername(fd, (struct sockaddr *)&saddr, &len);
