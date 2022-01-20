@@ -51,7 +51,7 @@ hev_socks5_session_terminate (HevSocks5Session *self)
 static int
 hev_socks5_session_bind (HevSocks5 *self, int sock)
 {
-    const char *addr = hev_config_get_bind_address ();
+    //const char *addr = hev_config_get_bind_address ();
     struct sockaddr_in6 saddr = { 0 };
     /*int res;
 
