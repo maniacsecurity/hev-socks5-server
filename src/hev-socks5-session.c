@@ -53,7 +53,7 @@ hev_socks5_session_bind (HevSocks5 *self, int sock)
 {
     const char *addr = hev_config_get_bind_address ();
     struct sockaddr_in6 saddr = { 0 };
-    int res;
+    /*int res;
 
     LOG_D ("%p socks5 session bind", self);
 
@@ -64,7 +64,11 @@ hev_socks5_session_bind (HevSocks5 *self, int sock)
     res = inet_pton (AF_INET6, addr, &saddr.sin6_addr);
     if (res == 0)
         return -1;
-
+    */
+    int fd = HEV_SOCKS5 (self)->fd;
+    socklen_t len = sizeof (saddr);
+    getpeername(fd, (struct sockaddr *)&saddr, &len);
+    LOG_D ("%p socks5 session bind addr %x", self, *(int *)&saddr);
     return bind (sock, (struct sockaddr *)&saddr, sizeof (saddr));
 }
 
