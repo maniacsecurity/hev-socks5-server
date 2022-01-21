@@ -52,7 +52,7 @@ static int
 hev_socks5_session_bind (HevSocks5 *self, int sock)
 {
     struct sockaddr_in saddr = { 0 };
-    int fd = HEV_SOCKS5 (&self->base))->fd;
+    int fd = HEV_SOCKS5 (&self->base)->fd;
     socklen_t len = sizeof (saddr);
     getsockname(fd, (struct sockaddr *)&saddr, &len);
     saddr.sin6_port = 0;
