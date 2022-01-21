@@ -51,27 +51,12 @@ hev_socks5_session_terminate (HevSocks5Session *self)
 static int
 hev_socks5_session_bind (HevSocks5 *self, int sock)
 {
-    //const char *addr = hev_config_get_bind_address ();
     struct sockaddr_in saddr = { 0 };
-    /*int res;
-
-    LOG_D ("%p socks5 session bind", self);
-
-    if (!addr)
-        return 0;
-
-    saddr.sin6_family = AF_INET6;
-    res = inet_pton (AF_INET6, addr, &saddr.sin6_addr);
-    if (res == 0)
-        return -1;
-    */
-    int fd = HEV_SOCKS5 ((((HevSocks5Server *)self)->base))->fd;
+    int fd = HEV_SOCKS5 (&self->base))->fd;
     socklen_t len = sizeof (saddr);
-    LOG_D ("%p socks5 session bind fd %x", self, fd);
-    getpeername(fd, (struct sockaddr *)&saddr, &len);
-    char ip[30] = {0};
-    inet_ntop(AF_INET, &saddr.sin_addr, ip, sizeof(ip));
-    LOG_D ("%p socks5 session bind addr %s", self, ip);
+    getsockname(fd, (struct sockaddr *)&saddr, &len);
+    saddr.sin6_port = 0;
+    LOG_D ("%p socks5 session bind addr", self);
     return bind (sock, (struct sockaddr *)&saddr, sizeof (saddr));
 }
 
